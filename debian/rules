@@ -1,0 +1,19 @@
+#!/usr/bin/make -f
+
+# set this to the name of the main shlib's binary package
+PACKAGE = libxtst6
+
+%:
+	dh $@ --with quilt --builddirectory=build/
+
+override_dh_auto_configure-indep: docflags = --enable-specs --with-xmlto --without-fop
+override_dh_auto_configure-arch: docflags = --disable-specs
+override_dh_auto_configure-arch override_dh_auto_configure-indep:
+	dh_auto_configure -- $(docflags) \
+		--docdir=\$${prefix}/share/doc/libxtst-dev
+
+override_dh_install:
+	dh_install --fail-missing -XlibXtst.la
+
+override_dh_makeshlibs:
+	dh_makeshlibs -s --add-udeb=$(PACKAGE)-udeb
