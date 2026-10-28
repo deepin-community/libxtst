@@ -1,2 +1,3 @@
 01_fix_date_in_manpages.diff
 CVE-2026-94286.patch
+CVE-2026-109088.patch
